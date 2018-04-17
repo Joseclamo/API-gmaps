@@ -10,5 +10,20 @@
   <%= @destination.country %>
 </p>
 
+<p><%= @destination.latitude %>, <%= @destination.longitude %></p>
+
+<div id="destination-map"></div>
+
+<%= javascript_tag do %><!-- Esto es JS pero no se puede poner en un js, hay que ponerlo aqui porque tambien se necesita ruby-->
+   var latitude = '<%= j @destination.latitude.to_s %>';
+   var longitude = '<%= j @destination.longitude.to_s %>';
+   var address = '<%= j @destination.city %>';
+<% end %>
+
 <%= link_to 'Edit', edit_destination_path(@destination) %> |
 <%= link_to 'Back', destinations_path %>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAS25JFZK6b2BaS1qUe7L5nU13hibO-boA&callback=initDestinationMap"async defer></script>
+
+<!-- Hemos cambiado la forma de llamar a la api, antes era initMap, ahora es initDestinationMap,
+meto la funcion en el application.js -->
